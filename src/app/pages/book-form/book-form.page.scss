@@ -1,0 +1,22 @@
+.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.cover-preview {
+  margin-top: 16px;
+
+  img {
+    max-width: 150px;
+    max-height: 200px;
+    display: block;
+  }
+}

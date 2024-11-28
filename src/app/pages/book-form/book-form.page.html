@@ -1,0 +1,47 @@
+<div @slideInOut>
+  <h1 mat-dialog-title>{{ isEditMode ? 'Редагування книги' : 'Додавання книги' }}</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="bookForm">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Book Title</mat-label>
+        <input matInput formControlName="title" />
+        <mat-error *ngIf="bookForm.get('title')?.invalid">This is required field.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Author</mat-label>
+        <input matInput formControlName="author" />
+        <mat-error *ngIf="bookForm.get('author')?.invalid">This is required field.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Year of Publishing</mat-label>
+        <input matInput type="number" formControlName="year" />
+        <mat-error *ngIf="bookForm.get('year')?.invalid">
+         Enter correct year. This is required field.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+        <mat-error *ngIf="bookForm.get('description')?.invalid">This is required field.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Cover URL</mat-label>
+        <input matInput placeholder="Введіть URL зображення" formControlName="coverImageUrl" />
+        <mat-error *ngIf="bookForm.get('coverImageUrl')?.hasError('pattern')">Input correct image URL</mat-error>
+      </mat-form-field>
+
+      <div *ngIf="bookForm.get('coverImageUrl')?.value" class="cover-preview">
+        <p>Попередній перегляд:</p>
+        <img [src]="bookForm.get('coverImageUrl')?.value" alt="Обкладинка" />
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="bookForm.invalid">Save</button>
+  </div>
+</div>

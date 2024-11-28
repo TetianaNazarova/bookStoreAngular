@@ -1,0 +1,69 @@
+<mat-card class="material-container">
+  <mat-card-header class="header">
+    <mat-card-title>Book List - Local Library</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card>
+      <mat-card-content class="top-box">
+        <mat-form-field class="search-field" appearance="outline">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            placeholder="Enter Book Title or Author"
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="applyFilter()"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="openAddForm()">Add Book</button>
+      </mat-card-content>
+    </mat-card>
+
+    <table mat-table [dataSource]="filteredBooks" class="mat-elevation-z8">
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let book"> {{ book.title }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="author">
+        <th mat-header-cell *matHeaderCellDef> Author </th>
+        <td mat-cell *matCellDef="let book"> {{ book.author }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="year">
+        <th mat-header-cell *matHeaderCellDef> Year </th>
+        <td mat-cell *matCellDef="let book"> {{ book.year }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cover">
+        <th mat-header-cell *matHeaderCellDef> Cover </th>
+        <td mat-cell *matCellDef="let book">
+          <img [src]="book?.coverImageUrl || 'https://via.placeholder.com/150'" alt="Cover" class="book-cover" />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let book">
+          <button mat-icon-button color="primary" (click)="openDetails(book)">
+            <mat-icon>info</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="openEditForm(book)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteBook(book.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['cover', 'title', 'author', 'year', 'actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['cover', 'title', 'author', 'year', 'actions'];" [@listAnimation]></tr>
+    </table>
+  </mat-card-content>
+</mat-card>
+
+
+
+
